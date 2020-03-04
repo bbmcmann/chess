@@ -8,7 +8,7 @@ public class gameTester{
         //bruh.placeKnight(1, 8);
         //System.out.println(bruh);
 
-        bruh.placeBishop(6, 3);
+        bruh.placeQueen(5, 4);
         System.out.println(bruh);
     }
 
