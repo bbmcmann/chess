@@ -1,4 +1,4 @@
-import java.awt.Color;
+//import java.awt.Color;
 
 public class Board{
 
@@ -14,9 +14,9 @@ public class Board{
             for(int col = 0; col < squares[0].length; col++){
                 int rank = squares.length - row;
                 int file = col+1;
-                Color color = Color.WHITE;
+                String color = "w";
                 if(isBlack){
-                    color = Color.BLACK;
+                    color = "b";
                 }
                 squares[row][col] = new Square(rank, file, color);
                 isBlack = !isBlack;
