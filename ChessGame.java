@@ -91,17 +91,21 @@ public class ChessGame{
         return influence;
     }
 
-    public int placeQueen(int rank, int file){
+    public int placeQueen(int rank, int file, boolean onlyInfluence){
         int influence = 0;
         if(board.getSquare(rank, file) != null){
 
-            board.getSquare(rank, file).setPiece("q");
-
+            if(!onlyInfluence){
+                board.getSquare(rank, file).setPiece("q");
+            }
+            
             for(int i = 1; i <= 8; i++){
                 for(int j = 1; j <= 8; j++){
                     //check to see if current square is somewhere a bishop can move
                     if(Math.abs(rank-i) == Math.abs(file-j)){
-                        board.getSquare(i, j).toggleHighlight();
+                        if(!onlyInfluence){
+                            board.getSquare(i, j).toggleHighlight();
+                        }
                         influence ++;
                     }
 
@@ -109,12 +113,16 @@ public class ChessGame{
             }
 
             for(int i = 1; i <= 8; i++){
-                board.getSquare(rank,i).toggleHighlight();
+                if(!onlyInfluence){
+                    board.getSquare(rank,i).toggleHighlight();
+                }
                 influence ++;
             }
             //loop through the file
             for(int i = 1; i <= 8; i++){
-                board.getSquare(i,file).toggleHighlight();
+                if(!onlyInfluence){
+                    board.getSquare(i,file).toggleHighlight();
+                }
                 influence ++;
             }
 
@@ -124,16 +132,26 @@ public class ChessGame{
     }
 
     //NOT DONE!!!
-    public String[] maxQueenInfluence(){
-        String[] bestSpots = new String[64];
-
+    public int maxQueenInfluence(){
+        int maxInfluence = 0;
         for(int i = 1; i <= 8; i++){
             for(int j = 1; j <= 8; j++){
-                placeQueen(i, j);
+                if(placeQueen(i, j, true) > maxInfluence){
+                    maxInfluence = placeQueen(i, j, true);
+                }
+                //board.clearBoard();
             }                
         }
 
-        return bestSpots;
+        for(int i = 1; i <= 8; i++){
+            for(int j = 1; j <= 8; j++){
+                if(placeQueen(i, j, true) == maxInfluence){
+                    board.getSquare(i, j).toggleHighlight();
+                }
+            }                
+        }
+
+        return maxInfluence;
     }
 
     public double dist(int r1, int f1, int r2, int f2){

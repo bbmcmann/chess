@@ -24,10 +24,22 @@ public class Board{
         }
     }
 
-    public Square getSquare (int rank, int file){       //this may not be right
-        return squares[squares.length-rank][file-1];    //it is just for modeling purposes
+    public Square getSquare (int rank, int file){       
+        return squares[squares.length-rank][file-1];    
+    }
+
+    public void clearBoard(){
+        for(int i = squares[0].length-1; i >= 0; i--){
+            for(int j = squares.length-1; j >= 0; j--){
+                if(squares[i][j].getColor().equals("b")){
+                    squares[i][j].setPiece("#");
+                }
+                else{
+                    squares[i][j].setPiece("@");
+                }
+            }
+        }
     }
 }
 
 
-//clearBoard()
