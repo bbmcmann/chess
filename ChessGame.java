@@ -3,7 +3,7 @@ public class ChessGame{
     private Board board;
 
     public ChessGame(){
-        this.board = new Board();
+        this.board = new Board(100,100);
     }
 
     public int placeRook(int rank, int file){
@@ -12,12 +12,12 @@ public class ChessGame{
             
             board.getSquare(rank, file).setPiece("r");
             //loop through the rank
-            for(int i = 1; i <= 8; i++){
+            for(int i = 1; i <= board.getFiles(); i++){
                 board.getSquare(rank,i).toggleHighlight();
                 influence ++;
             }
             //loop through the file
-            for(int i = 1; i <= 8; i++){
+            for(int i = 1; i <= board.getRanks(); i++){
                 board.getSquare(i,file).toggleHighlight();
                 influence ++;
             }
@@ -35,8 +35,8 @@ public class ChessGame{
             //a piece cannot move to where it already is
             board.getSquare(rank, file).toggleHighlight();
             //loop through the ENTIRE board
-            for(int i = 1; i <= 8; i++){
-                for(int j = 1; j <= 8; j++){
+            for(int i = 1; i <= board.getRanks(); i++){
+                for(int j = 1; j <= board.getFiles(); j++){
                     //check to see if current square is somewhere a rook can move
                     if(i == rank || j == file){
                         board.getSquare(i, j).toggleHighlight();
@@ -53,8 +53,8 @@ public class ChessGame{
 
             board.getSquare(rank, file).setPiece("k");
 
-            for(int i = 1; i <= 8; i++){
-                for(int j = 1; j <= 8; j++){
+            for(int i = 1; i <= board.getRanks(); i++){
+                for(int j = 1; j <= board.getFiles(); j++){
                     //check to see if current square is somewhere a knight can move
                     if(dist(rank, file, i, j) == Math.sqrt(5)){
                         board.getSquare(i, j).toggleHighlight();
@@ -75,8 +75,8 @@ public class ChessGame{
 
             board.getSquare(rank, file).setPiece("b");
 
-            for(int i = 1; i <= 8; i++){
-                for(int j = 1; j <= 8; j++){
+            for(int i = 1; i <= board.getRanks(); i++){
+                for(int j = 1; j <= board.getFiles(); j++){
                     //check to see if current square is somewhere a bishop can move
                     if(Math.abs(rank-i) == Math.abs(file-j)){
                         board.getSquare(i, j).toggleHighlight();
@@ -99,8 +99,8 @@ public class ChessGame{
                 board.getSquare(rank, file).setPiece("q");
             }
             
-            for(int i = 1; i <= 8; i++){
-                for(int j = 1; j <= 8; j++){
+            for(int i = 1; i <= board.getRanks(); i++){
+                for(int j = 1; j <= board.getFiles(); j++){
                     //check to see if current square is somewhere a bishop can move
                     if(Math.abs(rank-i) == Math.abs(file-j)){
                         if(!onlyInfluence){
@@ -112,14 +112,14 @@ public class ChessGame{
                 }                
             }
 
-            for(int i = 1; i <= 8; i++){
+            for(int i = 1; i <= board.getFiles(); i++){
                 if(!onlyInfluence){
                     board.getSquare(rank,i).toggleHighlight();
                 }
                 influence ++;
             }
             //loop through the file
-            for(int i = 1; i <= 8; i++){
+            for(int i = 1; i <= board.getRanks(); i++){
                 if(!onlyInfluence){
                     board.getSquare(i,file).toggleHighlight();
                 }
@@ -131,7 +131,6 @@ public class ChessGame{
         return influence;
     }
 
-    //NOT DONE!!!
     public int maxQueenInfluence(){
         int maxInfluence = 0;
         for(int i = 1; i <= 8; i++){
@@ -163,8 +162,8 @@ public class ChessGame{
 
     public String toString(){
         String textBoard = "";
-        for(int i = 1; i <= 8; i++){
-            for(int j = 1; j <= 8; j++){
+        for(int i = 1; i <= board.getRanks(); i++){
+            for(int j = 1; j <= board.getFiles(); j++){
                 textBoard = textBoard + board.getSquare(i, j).getPiece() + " ";
             } 
             textBoard = textBoard + "\n";

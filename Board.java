@@ -4,8 +4,8 @@ public class Board{
 
     private Square squares[][];
 
-    public Board(){
-        squares = new Square[8][8];
+    public Board(int ranks, int files){
+        squares = new Square[ranks][files];
         for(int row = 0; row < squares.length; row++){
             boolean isBlack = false;
             if(row % 2 == 0){
@@ -26,6 +26,14 @@ public class Board{
 
     public Square getSquare (int rank, int file){       
         return squares[squares.length-rank][file-1];    
+    }
+
+    public int getRanks(){
+        return this.squares.length;
+    }
+
+    public int getFiles(){
+        return this.squares[0].length;
     }
 
     public void clearBoard(){
